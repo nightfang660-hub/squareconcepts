@@ -1,7 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Jost', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary-bg: #F6F3EF;
+  --color-secondary-bg: #1F2937;
+  --color-accent: #82C21E;
+  --color-accent-hover: #6EA519;
+  --color-text-dark: #333333;
+  --color-text-light: #FFFFFF;
+
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+}
 
 @layer base {
   body {

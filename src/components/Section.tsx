@@ -25,9 +25,9 @@ export default function Section({
     <section
       id={id}
       className={cn(
-        'relative w-full overflow-hidden',
+        'relative w-full overflow-hidden px-6 sm:px-8 lg:px-12',
         dark ? 'bg-secondary-bg text-text-light' : 'bg-primary-bg text-text-dark',
-        !noPadding && 'py-24 md:py-36 px-6',
+        !noPadding && 'py-16 md:py-24',
         className
       )}
       {...props}

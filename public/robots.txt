@@ -1,0 +1,6 @@
+# robots.txt for Square Concepts Hyderabad
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://squareconcepts.co.in/sitemap.xml

@@ -2,8 +2,7 @@ import { motion } from 'motion/react';
 import Section from '@/src/components/Section';
 import { Target, Lightbulb, Shield, Timer, Award, Smile } from 'lucide-react';
 import { FadeIn, FadeInRight, ScaleIn, defaultVariants } from '@/src/components/Motion';
-
-
+import SEO from '@/src/components/SEO';
 
 const advantages = [
   { icon: <Shield />, title: 'End-to-End Service', description: 'From concept to execution, we handle everything.' },
@@ -17,8 +16,14 @@ const advantages = [
 export default function About() {
   return (
     <div className="pt-20">
+      <SEO 
+        title="About Us | Square Concepts Luxury Interior Designers Hyderabad"
+        description="Discover the story behind Square Concepts, Hyderabad's premier interior architecture and design firm in Jubilee Hills. Master craftsmanship, precision engineering, and bespoke living spaces."
+        path="/about"
+        keywords="About Square Concepts, interior designers Hyderabad, interior architecture Hyderabad, luxury living Jubilee Hills, interior design firm Hyderabad"
+      />
       {/* About Hero */}
-      <section className="relative pt-20 pb-12 md:pb-16 px-6 text-center overflow-hidden min-h-[60vh] flex items-center justify-center">
+      <section className="relative pt-20 pb-12 md:pb-16 px-6 sm:px-8 lg:px-12 text-center overflow-hidden min-h-[60vh] flex items-center justify-center">
          {/* Background Image & Overlay */}
          <div className="absolute inset-0 z-0">
             <img 
@@ -46,8 +51,9 @@ export default function About() {
               </h4>
             </FadeIn>
             <FadeIn>
-              <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-8 tracking-tighter leading-tight">
-                Structural Integrity <br /> <span className="italic font-light text-accent">Organic Warmth</span>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight mb-6 leading-tight">
+                Elegant Spaces <br />
+                <span className="text-accent">Engineered to Perfection</span>
               </h1>
             </FadeIn>
             <FadeIn>
@@ -63,7 +69,7 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
            <div className="space-y-8">
               <FadeIn>
-                <h2 className="text-4xl font-display font-bold">Our Journey of Excellence</h2>
+                <h2 className="text-2xl md:text-3xl font-display font-bold">Our Journey of Excellence</h2>
               </FadeIn>
               <FadeIn className="text-xl text-text-dark/60 leading-relaxed">
                 Founded over a decade ago, Square Concepts began with a simple mission: to make premium interior design accessible and practical without losing the soul of artistic expression.
@@ -93,7 +99,7 @@ export default function About() {
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <FadeIn>
             <h4 className="text-accent font-bold uppercase tracking-widest text-sm mb-4">How We Work</h4>
-            <h2 className="text-5xl font-display font-bold mb-6 text-white leading-tight">Our Strategic Approach</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-white leading-tight">Our Strategic Approach</h2>
           </FadeIn>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -115,19 +121,23 @@ export default function About() {
 
       {/* Our Philosophy */}
       <Section className="bg-primary-bg pt-10 md:pt-16 pb-12 md:pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-           <ScaleIn className="relative order-2 lg:order-1 flex justify-center lg:justify-start">
-              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" alt="Our Studio" className="rounded-3xl smooth-shadow w-full max-w-lg aspect-square object-cover" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+           <ScaleIn className="relative order-2 lg:order-1 lg:col-span-5 flex justify-center lg:justify-start">
+              <img 
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" 
+                alt="Our Studio" 
+                className="rounded-3xl smooth-shadow w-full max-w-[380px] md:max-w-[420px] aspect-[4/3] object-cover" 
+              />
            </ScaleIn>
-           <div className="space-y-8 order-1 lg:order-2">
+           <div className="space-y-6 order-1 lg:order-2 lg:col-span-7">
               <FadeIn>
-                <h4 className="text-accent font-bold uppercase tracking-widest text-sm mb-4">Our Core Philosophy</h4>
-                <h2 className="text-5xl font-display font-bold leading-tight">Crafting Legacies Through Design</h2>
+                <h4 className="text-accent font-bold uppercase tracking-widest text-sm mb-3">Our Core Philosophy</h4>
+                <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight">Crafting Legacies Through Design</h2>
               </FadeIn>
-              <FadeIn className="text-xl text-text-dark/60 leading-relaxed">
+              <FadeIn className="text-lg md:text-xl text-text-dark/70 leading-relaxed max-w-2xl">
                 At Square Concepts, we believe that a well-designed space is the foundation of a life well-lived. Our approach is rooted in the belief that every environment has a story to tell.
               </FadeIn>
-              <FadeIn className="text-lg text-text-dark/50 leading-relaxed">
+              <FadeIn className="text-base md:text-lg text-text-dark/60 leading-relaxed max-w-2xl">
                 We combine the latest in architectural technology with timeless aesthetic principles to create spaces that are not only beautiful but also deeply functional and enduring. Our team of experts works tirelessly to ensure that every project reflects the unique personality and aspirations of our clients, delivering excellence in every detail.
               </FadeIn>
            </div>
@@ -135,23 +145,23 @@ export default function About() {
       </Section>
 
       {/* Why Choose Us */}
-      <Section className="bg-white border-y border-text-dark/5 pt-12 md:pt-16 pb-10 md:pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-           <FadeInRight className="lg:col-span-1">
-              <h4 className="text-accent font-bold uppercase tracking-widest text-sm mb-4">Advantages</h4>
-              <h2 className="text-5xl font-display font-bold mb-6 leading-tight">Why Square Concepts?</h2>
-              <p className="text-text-dark/60 text-lg leading-relaxed">
-                Choosing an interior designer is a big decision. We've built our reputation on these core values.
+      <Section className="bg-white border-y border-text-dark/5 pt-8 md:pt-12 pb-8 md:pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+           <FadeInRight className="lg:col-span-4">
+              <h4 className="text-accent font-bold uppercase tracking-widest text-xs md:text-sm mb-2">Advantages</h4>
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-3 leading-tight">Why Square Concepts?</h2>
+              <p className="text-text-dark/60 text-base leading-relaxed">
+                Designing beautiful, functional spaces tailored to your lifestyle—crafted with premium quality, complete transparency, and lasting care.
               </p>
            </FadeInRight>
-           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+           <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 md:gap-y-6 pt-1">
               {advantages.map((adv) => (
-                <motion.div key={adv.title} variants={defaultVariants} className="flex gap-6">
-                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                <motion.div key={adv.title} variants={defaultVariants} className="flex gap-4 items-start">
+                   <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent shrink-0 mt-0.5 [&>svg]:w-5 [&>svg]:h-5">
                       {adv.icon}
                    </div>
                    <div>
-                      <h4 className="text-xl font-bold mb-2">{adv.title}</h4>
+                      <h4 className="text-base md:text-lg font-bold mb-1 leading-snug">{adv.title}</h4>
                       <p className="text-text-dark/50 leading-relaxed text-sm">
                         {adv.description}
                       </p>

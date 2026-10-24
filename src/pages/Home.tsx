@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import kitchenElements from '../kitchen.elements.jpg';
-import nolteLogo from '../Nolte_Küchen_logo.svg.png';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, ChevronRight, Star, Quote, ArrowUpRight, Sparkles, MapPin } from 'lucide-react';
+import { ArrowRight, ChevronRight, Star, Quote, Sparkles, MapPin } from 'lucide-react';
 import Section from '@/src/components/Section';
 import { cn } from '@/src/lib/utils';
 import { FadeIn, FadeInRight, ScaleIn, defaultVariants } from '@/src/components/Motion';
+import { projects } from '@/src/data/projects';
+import SEO from '@/src/components/SEO';
 
 const stats = [
   { value: '500+', label: 'PROJECTS COMPLETED', target: 500, suffix: '+' },
@@ -52,73 +53,56 @@ const Counter = ({ target, suffix, duration = 2 }: { target: number; suffix: str
 
 const services = [
   {
-    title: 'Residential Design',
-    description: 'Bespoke living spaces tailored to your lifestyle and aesthetic preferences.',
-    icon: '🏠',
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1200'
-  },
-  {
     title: 'Modular Kitchens',
-    description: 'Efficient, stylish, and high-quality kitchen solutions for modern homes.',
+    description: 'Highly efficient, ergonomic kitchen systems designed for modern living.',
     icon: '🍳',
+    path: '/services/modular-kitchens',
     image: 'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&q=80&w=1200'
   },
   {
-    title: 'Living Room Interiors',
-    description: 'Transforming your central gathering space into a statement of elegance.',
-    icon: '🛋️',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200'
-  },
-  {
-    title: 'Bedroom Sanctuaries',
-    description: 'Creating peaceful retreats designed for rest and ultimate comfort.',
-    icon: '🛏️',
-    image: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&q=80&w=1200'
-  },
-  {
-    title: 'Wardrobes & Storage',
-    description: 'Smart storage solutions that maximize space without compromising style.',
+    title: 'Custom Wardrobes',
+    description: 'Bespoke storage solutions that blend perfectly with your bedroom aesthetics.',
     icon: '🚪',
+    path: '/services/custom-wardrobes',
     image: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=1200'
   },
   {
-    title: 'Smart Home Solutions',
-    description: 'Integrating modern technology seamlessly into your interior design.',
+    title: 'Residential Interior Design',
+    description: 'Personalized living spaces that reflect your lifestyle and values.',
+    icon: '🏠',
+    path: '/services/residential-interiors',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200'
+  },
+  {
+    title: '3D Design & Visualization',
+    description: 'Photorealistic views of your space before execution for absolute clarity.',
+    icon: '📐',
+    path: '/services/3d-design',
+    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200'
+  },
+  {
+    title: 'Furniture Customization',
+    description: 'Handcrafted furniture pieces built to your exact specifications.',
+    icon: '🛋️',
+    path: '/services/furniture',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1200'
+  },
+  {
+    title: 'Decorative Wall Paneling',
+    description: 'Custom architectural textures, fluting, and acoustic finishes for luxury walls.',
+    icon: '🪵',
+    path: '/services/wall-paneling',
+    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=1200'
+  },
+  {
+    title: 'Smart Home Integration',
+    description: 'Seamless tech integration for automated security, climate, and circadian lighting.',
     icon: '📱',
+    path: '/services/smart-home',
     image: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&q=80&w=1200'
   }
 ];
 
-const projects = [
-  { 
-    id: 1, 
-    title: 'Minimalist Penthouse', 
-    category: 'Residential', 
-    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80',
-    videoId: 'MRy6owOO4fk'
-  },
-  { 
-    id: 2, 
-    title: 'Modern Chef Kitchen', 
-    category: 'Kitchen', 
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    videoId: 'E8qSNCa7QV4'
-  },
-  { 
-    id: 3, 
-    title: 'Scandi Living Room', 
-    category: 'Living', 
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
-    videoId: 'U73pzzKFu0E'
-  },
-  { 
-    id: 4, 
-    title: 'Luxe Master Suite', 
-    category: 'Bedroom', 
-    image: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=800&q=80',
-    videoId: 'uL8fLYnjeTc'
-  },
-];
 
 const processSteps = [
   { number: '01', title: 'Discovery', description: 'Understanding your vision, requirements, and budget through deep consultation.' },
@@ -212,64 +196,78 @@ const ProjectCard: React.FC<{ project: any; idx: number }> = ({ project, idx }) 
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.div
-      key={project.id}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      variants={{
-        hidden: { opacity: 0, scale: 0.9 },
-        visible: { 
-          opacity: 1, 
-          scale: 1,
-          transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1.0], delay: idx * 0.1 }
-        }
-      }}
-      className="group relative aspect-[4/5] w-[420px] overflow-hidden rounded-[2rem] smooth-shadow bg-secondary-bg"
-    >
-      {/* Video Layer */}
-      {isHovered && (
-        <div className="absolute inset-0 z-0">
-          <iframe
-            src={`https://www.youtube.com/embed/${project.videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${project.videoId}`}
-            title={project.title}
-            className="w-[100%] h-[100%] scale-[2.2] origin-center"
-            allow="autoplay; encrypted-media"
-          />
-        </div>
-      )}
+    <Link to={`/projects/${project.id}`} className="block">
+      <motion.div
+        key={project.id}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        variants={{
+          hidden: { opacity: 0, scale: 0.9 },
+          visible: { 
+            opacity: 1, 
+            scale: 1, 
+            transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1.0], delay: idx * 0.1 }
+          }
+        }}
+        className="group relative aspect-[4/5] w-[300px] sm:w-[320px] md:w-[340px] overflow-hidden rounded-[1.75rem] smooth-shadow bg-secondary-bg"
+      >
+        {/* Video Layer */}
+        {isHovered && project.videoId && (
+          <div className="absolute inset-0 z-0">
+            <iframe
+              src={`https://www.youtube.com/embed/${project.videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${project.videoId}`}
+              title={project.title}
+              className="w-[100%] h-[100%] scale-[2.2] origin-center"
+              allow="autoplay; encrypted-media"
+            />
+          </div>
+        )}
 
-      {/* Thumbnail Layer */}
-      <motion.img 
-        src={project.image} 
-        alt={project.title} 
-        animate={{ opacity: isHovered ? 0 : 1 }}
-        transition={{ duration: 0.3 }}
-        className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10" 
-      />
-      
-      {/* Content Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-secondary-bg/90 via-secondary-bg/10 to-transparent opacity-100 group-hover:opacity-0 transition-all duration-500 flex flex-col justify-end p-10 z-20">
-        <span className="text-accent text-sm font-bold uppercase tracking-widest mb-2">{project.category}</span>
-        <h3 className="text-text-light text-3xl font-bold mb-4">{project.title}</h3>
-        <div className="flex items-center gap-2 text-white/80 text-base font-medium">
-          Explore Project <ArrowRight size={18} />
+        {/* Thumbnail Layer */}
+        <motion.img 
+          src={project.image} 
+          alt={project.title} 
+          animate={{ opacity: isHovered && project.videoId ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10" 
+        />
+        
+
+
+        {/* Content Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-secondary-bg/95 via-secondary-bg/40 to-transparent opacity-100 group-hover:opacity-90 transition-all duration-500 flex flex-col justify-end p-6 md:p-7 z-20">
+          <span className="text-accent text-[11px] font-bold uppercase tracking-widest mb-1">{project.projectType || project.category}</span>
+          <h3 className="text-text-light text-xl md:text-2xl font-bold mb-2">{project.clientName || project.title}</h3>
+          <div className="flex items-center justify-between text-white/80 text-xs sm:text-sm font-medium pt-2 border-t border-white/10">
+            <span className="flex items-center gap-1.5 text-white/60">
+              <MapPin size={13} className="text-accent" /> {project.location}
+            </span>
+            <span className="flex items-center gap-1 text-accent font-semibold group-hover:gap-2 transition-all">
+              View Project <ArrowRight size={15} />
+            </span>
+          </div>
         </div>
-      </div>
-      
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 };
 
 export default function Home() {
   return (
     <div className="w-full">
+      <SEO 
+        title="Square Concepts Hyderabad | Luxury Interior Designers & Modular Kitchens"
+        description="Square Concepts is Hyderabad's premier luxury interior design studio located in Jubilee Hills. We specialize in bespoke modular kitchens, custom wardrobes, turnkey residential interiors, and 3D architectural visualization across Hyderabad."
+        path="/"
+        keywords="Square Concepts, Square Concepts Hyderabad, luxury interior designers Hyderabad, best modular kitchens Hyderabad, interior designers Jubilee Hills, custom wardrobes Hyderabad, turnkey interior designers Hyderabad, 3D interior design Hyderabad"
+      />
       {/* Hero Section */}
       <section className="relative min-h-[95vh] flex items-center pt-24 overflow-hidden bg-hero-gradient">
         {/* Background Elements */}
         <div className="absolute top-0 right-0 w-[40%] h-full bg-accent/5 -skew-x-[20deg] translate-x-1/2 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none text-accent/10" />
         
-        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -280,14 +278,14 @@ export default function Home() {
                 }
               }
             }}
-            className="lg:col-span-6"
+            className="lg:col-span-7"
           >
 
             
             <FadeIn>
-              <h1 className="text-5xl md:text-7xl font-display font-bold leading-[0.85] mb-10 text-secondary-bg tracking-tighter">
-                Elegant Spaces, <br />
-                <span className="text-accent italic font-light">Engineered</span> to Perfection
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3rem] font-display font-bold tracking-tight text-secondary-bg mb-8 leading-[1.15]">
+                <span className="block">Elegant Spaces</span>
+                <span className="block text-accent">Engineered to Perfection</span>
               </h1>
             </FadeIn>
             
@@ -314,15 +312,15 @@ export default function Home() {
               </Link>
             </FadeIn>
 
-            <FadeIn className="mt-16 flex items-center gap-10 opacity-30 pt-10 border-t border-text-dark/10">
+            <FadeIn className="mt-8 pt-8 border-t border-text-dark/10 flex items-center gap-10">
                <div className="flex flex-col">
-                  <span className="text-3xl font-display font-bold">500+</span>
-                  <span className="text-[10px] uppercase font-bold tracking-widest leading-none">Spaces</span>
+                  <span className="text-3xl font-display font-bold text-secondary-bg">500+</span>
+                  <span className="text-[11px] uppercase font-bold tracking-widest text-secondary-bg/60 mt-1">Spaces</span>
                </div>
-               <div className="w-px h-8 bg-text-dark" />
+               <div className="w-px h-8 bg-text-dark/20" />
                <div className="flex flex-col">
-                  <span className="text-3xl font-display font-bold">12</span>
-                  <span className="text-[10px] uppercase font-bold tracking-widest leading-none">Awards</span>
+                  <span className="text-3xl font-display font-bold text-secondary-bg">12</span>
+                  <span className="text-[11px] uppercase font-bold tracking-widest text-secondary-bg/60 mt-1">Awards</span>
                </div>
             </FadeIn>
           </motion.div>
@@ -337,7 +335,7 @@ export default function Home() {
                 transition: { staggerChildren: 0.1 }
               }
             }}
-            className="lg:col-span-6 relative"
+            className="lg:col-span-5 relative"
           >
             {/* Architectural Layering */}
             <div className="relative z-10 grid grid-cols-2 gap-4">
@@ -401,9 +399,9 @@ export default function Home() {
 
           <div className="space-y-10">
             <FadeInRight>
-
-              <h2 className="text-4xl md:text-5xl font-display font-bold mb-8 leading-[1.05] tracking-tight">
-                Crafting Interiors That <br /> <span className="text-accent italic font-light">Feel Like Home</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3rem] font-display font-bold tracking-tight text-secondary-bg mb-8 leading-[1.15]">
+                <span className="block">Crafting Interiors That</span>
+                <span className="block text-accent">Feel Like Home</span>
               </h2>
             </FadeInRight>
             
@@ -436,7 +434,7 @@ export default function Home() {
       <Section dark className="pt-10 pb-12 md:pt-16 md:pb-16">
         <div className="text-center mb-20 max-w-3xl mx-auto">
           <h4 className="text-accent font-bold uppercase tracking-widest text-sm mb-4">What We Do</h4>
-          <h2 className="text-5xl font-display font-bold mb-6 text-white leading-tight">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-5 text-white leading-tight">
             Comprehensive Design Solutions
           </h2>
           <p className="text-text-light/60 text-lg">
@@ -462,7 +460,7 @@ export default function Home() {
                 <p className="text-text-light/50 transition-colors mb-6 leading-relaxed">
                   {service.description}
                 </p>
-                <Link to="/services" className="inline-flex items-center gap-2 text-accent font-bold text-sm tracking-widest uppercase hover:gap-3 transition-all">
+                <Link to={service.path} className="inline-flex items-center gap-2 text-accent font-bold text-sm tracking-widest uppercase hover:gap-3 transition-all">
                   View Details
                   <ArrowRight size={16} />
                 </Link>
@@ -479,36 +477,48 @@ export default function Home() {
       </Section>
 
       {/* Featured Projects */}
-      <Section className="bg-primary-bg overflow-visible pt-12 md:pt-16 pb-12 md:pb-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <Section className="bg-primary-bg overflow-visible pt-8 md:pt-10 pb-8 md:pb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-10 gap-6">
           <FadeIn className="max-w-2xl">
-            <h2 className="text-5xl font-display font-bold leading-tight">Featured Concept Designs</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight">Completed Projects</h2>
+            <p className="text-text-dark/60 text-base md:text-lg mt-2">Explore our recently completed bespoke home interiors crafted to perfection across Hyderabad</p>
           </FadeIn>
-          <FadeIn>
+          <FadeIn className="hidden md:block">
             <Link
               to="/projects"
-              className="flex items-center gap-2 text-text-dark/60 hover:text-accent font-bold transition-all px-6 py-3 rounded-full border border-text-dark/10 hover:border-accent"
+              className="bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-full text-sm font-bold transition-all hover:shadow-xl hover:shadow-accent/20 flex items-center gap-2 group"
             >
               All Projects
-              <ChevronRight size={18} />
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </FadeIn>
         </div>
 
         <div className="relative overflow-hidden group/gallery">
           <div 
-            className="flex gap-10 whitespace-nowrap pause-on-hover"
+            className="flex gap-6 md:gap-7 whitespace-nowrap pause-on-hover"
             style={{ 
               width: "max-content",
               animation: "scroll 40s linear infinite" 
             }}
           >
             {[...projects, ...projects].map((project, idx) => (
-              <div key={`${project.id}-${idx}`} className="w-[420px] shrink-0 whitespace-normal">
+              <div key={`${project.id}-${idx}`} className="w-[300px] sm:w-[320px] md:w-[340px] shrink-0 whitespace-normal">
                 <ProjectCard project={project} idx={idx} />
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Mobile View All Projects Button */}
+        <div className="mt-8 flex justify-center md:hidden">
+          <Link
+            to="/projects"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent-hover text-white px-7 py-3.5 rounded-full text-sm font-bold tracking-wide shadow-lg shadow-accent/25 hover:shadow-xl transition-all active:scale-95 group"
+          >
+            <span>Explore All Projects</span>
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </Section>
 
@@ -516,10 +526,10 @@ export default function Home() {
       <Section className="bg-white border-y border-text-dark/5 relative pt-12 md:pt-16 pb-10 md:pb-14">
         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
         
-        <div className="text-center mb-24 max-w-3xl mx-auto">
-
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight tracking-tight">
-            The Smooth Path To <br /> <span className="text-accent italic font-light">Your Dream Space</span>
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight tracking-tight text-secondary-bg">
+            <span className="block">The Smooth Path To</span>
+            <span className="block text-accent">Your Dream Space</span>
           </h2>
         </div>
         
@@ -554,103 +564,19 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Nolte Germany Section */}
-      <Section className="bg-primary-bg pt-8 md:pt-12 pb-16 md:pb-20 overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="order-2 lg:order-1 space-y-8">
-            <FadeIn>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-[1.1] tracking-tight text-secondary-bg mb-6">
-                Precision Engineered <br /> by <span className="text-accent italic font-light">Nolte Germany</span>
-              </h2>
-              <p className="text-lg text-secondary-bg/60 leading-relaxed max-w-xl">
-                Experience the pinnacle of German engineering. Since 1958, Nolte has been synonymous with exceptional quality, transforming kitchens into architectural masterpieces.
-              </p>
-            </FadeIn>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-secondary-bg/5">
-              <FadeIn className="space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-secondary-bg flex items-center justify-center text-white">
-                  <CheckCircle2 size={16} />
-                </div>
-                <h4 className="font-display font-bold text-base">German Heritage</h4>
-                <p className="text-xs text-secondary-bg/50 leading-relaxed">
-                  Crafting excellence for over 65 years with state-of-the-art manufacturing in Germany.
-                </p>
-              </FadeIn>
-              <FadeIn className="space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-secondary-bg flex items-center justify-center text-white">
-                  <Sparkles size={16} />
-                </div>
-                <h4 className="font-display font-bold text-base">Sustainable Luxury</h4>
-                <p className="text-xs text-secondary-bg/50 leading-relaxed">
-                  Deeply committed to the environment with FSC® and PEFC™ certified sustainable wood.
-                </p>
-              </FadeIn>
-              <FadeIn className="space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-secondary-bg flex items-center justify-center text-white">
-                  <ArrowUpRight size={16} />
-                </div>
-                <h4 className="font-display font-bold text-base">Smart Ergonomics</h4>
-                <p className="text-xs text-secondary-bg/50 leading-relaxed">
-                  The revolutionary MATRIX grid system ensures perfect height planning and storage.
-                </p>
-              </FadeIn>
-              <FadeIn className="space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-secondary-bg flex items-center justify-center text-white">
-                  <MapPin size={16} />
-                </div>
-                <h4 className="font-display font-bold text-base">World-Class Hardware</h4>
-                <p className="text-xs text-secondary-bg/50 leading-relaxed">
-                  Integrated silent soft-closing technology engineered for heavy daily use.
-                </p>
-              </FadeIn>
-            </div>
-
-            <FadeIn>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-3 text-secondary-bg font-bold text-base group pt-2"
-              >
-                Explore Nolte Collection
-                <div className="w-8 h-8 rounded-full border border-secondary-bg/20 flex items-center justify-center group-hover:bg-secondary-bg group-hover:text-white transition-all">
-                  <ArrowRight size={16} />
-                </div>
-              </Link>
-            </FadeIn>
-          </div>
-
-          <div className="order-1 lg:order-2 relative">
-            <ScaleIn className="relative z-10 rounded-[2.5rem] overflow-hidden smooth-shadow aspect-[4/3] border-[10px] border-white">
-              <img 
-                src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&q=80&w=1200" 
-                alt="Nolte Germany Kitchen Design" 
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary-bg/30 to-transparent" />
-              
-              {/* Badge Overlay */}
-              <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-xl shadow-xl border border-white/20 flex items-center justify-center">
-                 <img src={nolteLogo} alt="Nolte Germany Logo" className="h-6 w-auto object-contain" />
-              </div>
-            </ScaleIn>
-
-            {/* Decorative Elements */}
-            <div className="absolute -top-6 -right-6 w-48 h-48 bg-accent/5 rounded-full blur-3xl -z-10" />
-            <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-accent/5 rounded-full blur-3xl -z-10" />
-          </div>
-        </div>
-      </Section>
 
       {/* Stats Section */}
-      <Section dark className="py-24 relative overflow-hidden">
-        {/* Background Image & Overlay */}
+      <Section className="py-20 md:py-24 relative overflow-hidden bg-[#858C94]">
+        {/* Background Image & Cement Grey Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
             src={kitchenElements} 
             alt="Kitchen Elements" 
-            className="w-full h-full object-cover opacity-80 mix-blend-overlay"
+            loading="eager"
+            className="w-full h-full object-cover object-bottom"
           />
-          <div className="absolute inset-0 bg-secondary-bg/50" />
+          <div className="absolute inset-0 bg-[#7B838C]/85 backdrop-blur-[1px]" />
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center relative z-10">
@@ -663,10 +589,10 @@ export default function Home() {
               variants={defaultVariants}
               transition={{ delay: idx * 0.1 }}
             >
-              <div className="text-5xl md:text-6xl font-display font-bold text-accent mb-2 tracking-tighter">
+              <div className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-accent mb-2 tracking-tight drop-shadow-sm">
                 <Counter target={stat.target} suffix={stat.suffix} />
               </div>
-              <div className="text-text-light/50 font-medium uppercase tracking-widest text-[10px] md:text-xs">{stat.label}</div>
+              <div className="text-white/90 font-bold uppercase tracking-widest text-[11px] md:text-xs drop-shadow-sm">{stat.label}</div>
             </motion.div>
           ))}
         </div>
@@ -677,7 +603,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="lg:sticky lg:top-32 lg:-mt-10">
             <h4 className="text-accent font-bold uppercase tracking-widest text-sm mb-4">Reviews</h4>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-8 tracking-tighter whitespace-nowrap">What Our Clients Are Saying</h2>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold mb-6 tracking-tight whitespace-nowrap">What Our Clients Are Saying</h2>
             <p className="text-text-dark/60 text-lg mb-8 leading-relaxed max-w-xl">
               Don't just take our word for it. Hear from those who have already transformed their living experiences with us.
             </p>
@@ -703,7 +629,7 @@ export default function Home() {
           </div>
           
           <div className="relative z-10 px-8 py-12 md:py-16 text-center flex flex-col items-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4 tracking-tighter max-w-4xl">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-white mb-4 tracking-tight max-w-4xl">
               Ready to Transform Your <br /> Space Into a Timeless One?
             </h2>
             <p className="text-text-light/60 text-lg mb-8 max-w-xl leading-relaxed">

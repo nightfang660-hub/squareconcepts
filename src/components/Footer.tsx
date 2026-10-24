@@ -13,8 +13,11 @@ const links = {
   services: [
     { name: 'Modular Kitchens', path: '/services/modular-kitchens' },
     { name: 'Custom Wardrobes', path: '/services/custom-wardrobes' },
-    { name: 'Turnkey Interiors', path: '/services/turnkey-interiors' },
-    { name: 'Residential Design', path: '/services/residential-interiors' },
+    { name: 'Residential Interior Design', path: '/services/residential-interiors' },
+    { name: '3D Design & Visualization', path: '/services/3d-design' },
+    { name: 'Furniture Customization', path: '/services/furniture' },
+    { name: 'Decorative Wall Paneling', path: '/services/wall-paneling' },
+    { name: 'Smart Home Integration', path: '/services/smart-home' },
   ],
 };
 
@@ -22,7 +25,7 @@ export default function Footer() {
   return (
     <>
 
-      <footer className="bg-secondary-bg text-text-light pt-10 pb-8 px-6">
+      <footer className="bg-secondary-bg text-text-light pt-10 pb-8 px-6 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-8">
         {/* Brand */}
         <div className="space-y-4">
@@ -80,9 +83,9 @@ export default function Footer() {
             <li className="flex gap-3 text-text-light/60 items-start">
               <MapPin size={14} className="text-accent shrink-0 mt-1" />
               <div className="text-xs leading-relaxed">
-                Plot t no-1,2,19,20sy.No 61 57p,2nd floor<br/>
-                Madhapur Pride Pillar No-1722,<br/>
-                Madhapur, Hyderabad, Telangana 500081
+                H. No. 6-2-296/82/A/62, Plot No. 6,<br/>
+                Jubilee Hills, Hyderabad – 500033,<br/>
+                Telangana, India
               </div>
             </li>
             <li className="flex gap-3 text-text-light/60 items-center">

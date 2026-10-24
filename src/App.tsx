@@ -13,6 +13,7 @@ import About from './pages/About';
 import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
 import PopupAlert from './components/PopupAlert';
+import WhatsAppButton from './components/WhatsAppButton';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Consultation from './pages/Consultation';
@@ -65,6 +66,7 @@ export default function App() {
           <AnimatedRoutes />
         </main>
         <Footer />
+        <WhatsAppButton />
       </div>
     </Router>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowRight, ChevronDown, Sparkles, Layout, Armchair, DoorClosed, Box, Hammer, Layers, Lightbulb, PencilRuler, Square, Smartphone, Zap } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronDown, Layout, Armchair, DoorClosed, Box, PencilRuler, Square, Smartphone } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import logoImage from '../logo.image.png';
 
@@ -12,18 +12,11 @@ const navLinks = [
   { name: 'Contact', path: '/contact' },
 ];
 
-const primaryServices = [
+const services = [
   { name: 'Modular Kitchens', icon: <Box size={18} />, path: '/services/modular-kitchens' },
   { name: 'Custom Wardrobes', icon: <DoorClosed size={18} />, path: '/services/custom-wardrobes' },
-  { name: 'Turnkey Interior Solutions', icon: <Zap size={18} />, path: '/services/turnkey-interiors' },
   { name: 'Residential Interior Design', icon: <Armchair size={18} />, path: '/services/residential-interiors' },
   { name: '3D Design & Visualization', icon: <Layout size={18} />, path: '/services/3d-design' },
-];
-
-const secondaryServices = [
-  { name: 'Home Renovation & Remodeling', icon: <Hammer size={18} />, path: '/services/renovation-remodeling' },
-  { name: 'False Ceiling & Ceiling Design', icon: <Layers size={18} />, path: '/services/false-ceiling' },
-  { name: 'Lighting Design & Installation', icon: <Lightbulb size={18} />, path: '/services/lighting' },
   { name: 'Furniture Customization', icon: <PencilRuler size={18} />, path: '/services/furniture' },
   { name: 'Decorative Wall Paneling', icon: <Square size={18} />, path: '/services/wall-paneling' },
   { name: 'Smart Home Integration', icon: <Smartphone size={18} />, path: '/services/smart-home' },
@@ -32,6 +25,7 @@ const secondaryServices = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -59,13 +53,14 @@ export default function Header() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsDropdownOpen(false);
+    setIsMobileServicesOpen(false);
   }, [location]);
 
   return (
     <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-4',
-        isScrolled ? 'blur-header py-3' : 'bg-transparent'
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 sm:px-8 lg:px-12 bg-white/95 backdrop-blur-md border-b border-text-dark/5',
+        isScrolled ? 'py-3 shadow-sm' : 'py-4'
       )}
     >
       <motion.div 
@@ -106,7 +101,8 @@ export default function Header() {
             onMouseEnter={() => setIsDropdownOpen(true)}
             onMouseLeave={() => setIsDropdownOpen(false)}
           >
-            <button
+            <Link
+              to="/services"
               className={cn(
                 'text-sm font-bold tracking-tight transition-colors hover:text-accent py-1 flex items-center gap-1 cursor-pointer',
                 location.pathname.startsWith('/services') ? 'text-accent' : 'text-text-dark/70'
@@ -114,7 +110,7 @@ export default function Header() {
             >
               Services
               <ChevronDown size={14} className={cn("transition-transform duration-300", isDropdownOpen && "rotate-180")} />
-            </button>
+            </Link>
 
             <AnimatePresence>
               {isDropdownOpen && (
@@ -123,52 +119,31 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
                   transition={{ duration: 0.2, ease: 'easeOut' }}
-                  className="absolute top-full -left-48 mt-2 w-[600px] bg-white rounded-3xl smooth-shadow border border-text-dark/5 p-8 grid grid-cols-2 gap-10"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-white rounded-2xl smooth-shadow border border-text-dark/5 p-2 flex flex-col gap-1 shadow-2xl"
                 >
-                  {/* Primary column */}
-                  <div>
-                    <h4 className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-6 flex items-center gap-2">
-                       <Sparkles size={12} /> Primary Services
-                    </h4>
-                    <div className="space-y-4">
-                      {primaryServices.map((service) => (
-                        <Link
-                          key={service.name}
-                          to={service.path}
-                          className="flex items-center gap-4 group/item py-1"
-                        >
-                          <div className="w-10 h-10 rounded-xl bg-primary-bg flex items-center justify-center text-accent group-hover/item:bg-accent group-hover/item:text-white transition-all duration-300">
-                            {service.icon}
-                          </div>
-                          <span className="text-sm font-bold text-text-dark/70 group-hover/item:text-accent transition-colors">
-                            {service.name}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
+                  {services.map((service) => (
+                    <Link
+                      key={service.name}
+                      to={service.path}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-primary-bg transition-all group/item whitespace-nowrap"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-primary-bg flex items-center justify-center text-accent group-hover/item:bg-accent group-hover/item:text-white transition-all shrink-0">
+                        {service.icon}
+                      </div>
+                      <span className="text-sm font-bold text-text-dark/75 group-hover/item:text-accent transition-colors whitespace-nowrap">
+                        {service.name}
+                      </span>
+                    </Link>
+                  ))}
 
-                  {/* Secondary column */}
-                  <div>
-                    <h4 className="text-xs font-black uppercase tracking-[0.2em] text-text-dark/30 mb-6">
-                       Secondary Services
-                    </h4>
-                    <div className="space-y-4">
-                      {secondaryServices.map((service) => (
-                        <Link
-                          key={service.name}
-                          to={service.path}
-                          className="flex items-center gap-4 group/item py-1"
-                        >
-                          <div className="w-10 h-10 rounded-xl bg-primary-bg flex items-center justify-center text-text-dark/20 group-hover/item:bg-accent group-hover/item:text-white transition-all duration-300">
-                            {service.icon}
-                          </div>
-                          <span className="text-sm font-bold text-text-dark/70 group-hover/item:text-accent transition-colors">
-                            {service.name}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
+                  <div className="pt-1.5 mt-1 border-t border-text-dark/5">
+                    <Link
+                      to="/services"
+                      className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-primary-bg/70 hover:bg-accent hover:text-white text-accent font-bold text-xs uppercase tracking-wider transition-all group/all"
+                    >
+                      <span>View All Services</span>
+                      <ArrowRight size={14} className="group-hover/all:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -179,7 +154,7 @@ export default function Header() {
             to="/projects"
             className={cn(
               'text-sm font-bold tracking-tight transition-colors hover:text-accent relative py-1',
-              location.pathname === '/projects' ? 'text-accent' : 'text-text-dark/70'
+              location.pathname.startsWith('/projects') ? 'text-accent' : 'text-text-dark/70'
             )}
           >
             Projects
@@ -222,11 +197,82 @@ export default function Header() {
             className="md:hidden bg-primary-bg border-b border-text-dark/5 overflow-hidden"
           >
             <div className="flex flex-col gap-2 p-6">
-              <Link to="/" className="text-lg font-bold py-2 border-b border-text-dark/5">Home</Link>
-              <Link to="/about" className="text-lg font-bold py-2 border-b border-text-dark/5">About</Link>
-              <Link to="/services" className="text-lg font-bold py-2 border-b border-text-dark/5 text-accent">Services</Link>
-              <Link to="/projects" className="text-lg font-bold py-2 border-b border-text-dark/5">Projects</Link>
-              <Link to="/contact" className="text-lg font-bold py-2 border-b border-text-dark/5">Contact</Link>
+              <Link to="/" className={cn("text-lg font-bold py-2 border-b border-text-dark/5", location.pathname === '/' ? "text-accent" : "text-text-dark")}>Home</Link>
+              <Link to="/about" className={cn("text-lg font-bold py-2 border-b border-text-dark/5", location.pathname === '/about' ? "text-accent" : "text-text-dark")}>About</Link>
+              {/* Services Accordion Dropdown */}
+              <div className="border-b border-text-dark/5 py-1">
+                <div className="flex items-center justify-between">
+                  <Link 
+                    to="/services" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "text-lg font-bold py-2 transition-colors", 
+                      location.pathname.startsWith('/services') ? "text-accent" : "text-text-dark"
+                    )}
+                  >
+                    Services
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                    aria-label="Toggle services list"
+                    className="p-2 text-text-dark/60 hover:text-accent cursor-pointer transition-colors"
+                  >
+                    <ChevronDown 
+                      size={20} 
+                      className={cn("transition-transform duration-300", isMobileServicesOpen && "rotate-180 text-accent")} 
+                    />
+                  </button>
+                </div>
+
+                <AnimatePresence>
+                  {isMobileServicesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="overflow-hidden pl-1 pr-1 pb-3 flex flex-col gap-1.5"
+                    >
+                      {services.map((service) => (
+                        <Link
+                          key={service.name}
+                          to={service.path}
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            setIsMobileServicesOpen(false);
+                          }}
+                          className={cn(
+                            "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition-all",
+                            location.pathname === service.path
+                              ? "bg-accent/10 text-accent font-bold"
+                              : "text-text-dark/70 hover:bg-white hover:text-accent"
+                          )}
+                        >
+                          <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-accent shadow-xs shrink-0">
+                            {service.icon}
+                          </div>
+                          <span>{service.name}</span>
+                        </Link>
+                      ))}
+
+                      <Link
+                        to="/services"
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setIsMobileServicesOpen(false);
+                        }}
+                        className="flex items-center justify-between px-3.5 py-2.5 mt-1 rounded-xl bg-accent text-white text-xs font-bold uppercase tracking-wider shadow-sm"
+                      >
+                        <span>View All Services</span>
+                        <ArrowRight size={14} />
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <Link to="/projects" className={cn("text-lg font-bold py-2 border-b border-text-dark/5", location.pathname.startsWith('/projects') ? "text-accent" : "text-text-dark")}>Projects</Link>
+              <Link to="/contact" className={cn("text-lg font-bold py-2 border-b border-text-dark/5", location.pathname === '/contact' ? "text-accent" : "text-text-dark")}>Contact</Link>
               <Link
                 to="/consultation"
                 className="bg-accent text-white px-6 py-4 rounded-xl text-center font-bold mt-4"
