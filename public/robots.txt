@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://squareconcepts.co.in/sitemap.xml
+Sitemap: https://www.squareconcepts.co.in/sitemap.xml

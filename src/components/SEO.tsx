@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export const SITE_URL = 'https://squareconcepts.co.in';
+export const SITE_URL = 'https://www.squareconcepts.co.in';
 
 export interface SEOProps {
   title: string;
