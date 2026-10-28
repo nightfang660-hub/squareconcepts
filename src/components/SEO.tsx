@@ -45,7 +45,7 @@ export default function SEO({
 }: SEOProps) {
   const location = useLocation();
   const canonicalPath = path || location.pathname;
-  const canonicalUrl = `${SITE_URL}${canonicalPath === '/' ? '' : canonicalPath}`;
+  const canonicalUrl = `${SITE_URL}${canonicalPath === '/' ? '/' : canonicalPath}`;
 
   useEffect(() => {
     // 1. Update Document Title
